@@ -1,12 +1,12 @@
 services:
   backend-service:
-    image: bouthainabakouch/backend-api:v2
+    image: bouthainabakouch/backend-api
     depends_on:
       - database 
     env_file:
       - .env
     ports:
-      - "3007:3001"
+      - "3007:3002"
     container_name: backend-container
 
   database:
