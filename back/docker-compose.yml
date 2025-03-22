@@ -1,13 +1,13 @@
 services:
   backend-service:
-    image: bouthainabakouch/backend-api
+    image: bouthainabakouch/backend-api:v2
     depends_on:
       - database 
-    environment:
-      MONGO_URI: mongodb://root:example@database:27017/book-store?authSource=admin
-      PORT: 3001
+    env_file:
+      - .env
     ports:
       - "3007:3001"
+    container_name: backend-container
 
   database:
     image: mongo
