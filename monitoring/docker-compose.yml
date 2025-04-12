@@ -1,0 +1,37 @@
+services:
+  prometheus:
+    depends_on: [ node_exporter]
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./:/etc/prometheus/
+      - prometheus_data:/prometheus
+    ports:
+      - 9090:9090
+
+  node_exporter:
+    image: prom/node-exporter:latest
+    container_name: node_exporter
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: monitoring_grafana
+    restart: unless-stopped
+    ports:
+      - "3006:3000"                                         # Grafana accessible via localhost:3006
+    links:
+      - prometheus:prometheus                              # Connexion à Prometheus
+    volumes:
+      - grafana_data:/var/lib/grafana                    # Persistance des dashboards
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin              # Mot de passe admin Grafana
+      - GF_USERS_ALLOW_SIGN_UP=false   
+
+
+
+volumes:
+  prometheus_data:
+  grafana_data:
