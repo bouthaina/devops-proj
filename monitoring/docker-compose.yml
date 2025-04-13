@@ -1,13 +1,13 @@
 services:
   prometheus:
-    depends_on: [ node_exporter]
+    depends_on: [ node_exporter ]
     image: prom/prometheus
     container_name: prometheus
     volumes:
       - ./:/etc/prometheus/
       - prometheus_data:/prometheus
     ports:
-      - 9090:9090
+      -9090:9090
 
   node_exporter:
     image: prom/node-exporter:latest
@@ -28,8 +28,7 @@ services:
       - grafana_data:/var/lib/grafana                    # Persistance des dashboards
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin              # Mot de passe admin Grafana
-      - GF_USERS_ALLOW_SIGN_UP=false   
-
+      - GF_USERS_ALLOW_SIGN_UP=false    
 
 
 volumes:
