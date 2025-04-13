@@ -7,7 +7,7 @@ services:
       - ./:/etc/prometheus/
       - prometheus_data:/prometheus
     ports:
-      -9090:9090
+      - 9090:9090
 
   node_exporter:
     image: prom/node-exporter:latest
